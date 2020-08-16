@@ -1,7 +1,7 @@
 import React, { useState, useReducer, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-const API_ENDPOINT = "http://localhost:3001/";
+const API_ENDPOINT = "/";
 const TRENDS = "api/trends?id="
 const LOCATION_ID = "1"
 
