@@ -15,7 +15,7 @@ const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors());
-app.use(express.static(path.join(path.basename(path.dirname(__filename)), 'client', 'build')));
+app.use(express.static(__dirname, 'client', 'build')));
 
 
 const authMessage = {
@@ -52,7 +52,7 @@ app.get("/api/trends", async (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(path.basename(path.dirname(__filename)), 'client', 'build', 'index.html'))
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
 })
 
 app.listen(PORT, () =>  {
