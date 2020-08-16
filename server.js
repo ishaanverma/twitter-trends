@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const axios = require("axios");
+const path = require("path");
 
 dotenv.config();
 const app = express();
@@ -14,6 +15,8 @@ const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors());
+app.use(express.static(path.join(path.basename(path.dirname(__filename)), 'client', 'build')));
+
 
 const authMessage = {
   title: "Not Authenticated",
@@ -47,6 +50,10 @@ app.get("/api/trends", async (req, res) => {
     res.status(404).send(e.response.statusText);
   }
 });
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(path.basename(path.dirname(__filename)), 'client', 'build', 'index.html'))
+})
 
 app.listen(PORT, () =>  {
   console.log(`Listening at http://localhost:${PORT}`);
