@@ -15,8 +15,6 @@ const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors());
-app.use(express.static(__dirname, 'client', 'build')));
-
 
 const authMessage = {
   title: "Not Authenticated",
@@ -51,9 +49,14 @@ app.get("/api/trends", async (req, res) => {
   }
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-})
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+// Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 
 app.listen(PORT, () =>  {
   console.log(`Listening at http://localhost:${PORT}`);
