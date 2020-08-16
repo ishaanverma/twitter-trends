@@ -14,7 +14,8 @@ const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
 // setup middlewates
 app.use(morgan('dev'))
 app.use(express.json())
-app.use(cors());
+if (process.env.NODE_ENV === "development")
+  app.use(cors());
 
 const authMessage = {
   title: "Not Authenticated",
