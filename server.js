@@ -20,9 +20,9 @@ const authMessage = {
   title: "Not Authenticated",
 }
 
-app.get("/", (req, res) =>  {
-  res.send("Hello world");
-});
+// app.get("/", (req, res) =>  {
+//   res.send("Hello world");
+// });
 
 app.get("/api/trends", async (req, res) => {
   if (!BEARER_TOKEN)  {
